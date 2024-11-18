@@ -1,14 +1,12 @@
-import 'package:booking_app/config/api_config.dart';
 import 'package:booking_app/data/model/hotel.dart';
-import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-part 'home_repository.g.dart';
+class HomeRepository {
+  final _db = FirebaseFirestore.instance;
+  Future<List<Hotel>> getHotels() async {
+    final response = await _db.collection("hotels").get();
+    return response.docs.map((e) => Hotel.fromJson(e.data(),e.id)).toList();
+  }
 
-@RestApi(baseUrl: baseUrl)
-abstract class HomeRepository {
-  factory HomeRepository(Dio dio, {String baseUrl}) = _HomeRepository;
 
-  @GET('/api/v1/hotels')
-  Future<List<Hotel>> getHotels();
 }

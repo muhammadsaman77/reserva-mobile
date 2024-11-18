@@ -183,24 +183,23 @@ class HomePage extends StatelessWidget {
                           builder: (context, state) {
                         if (state is HomeInitial) {
                           context.read<HomeBloc>().add(FetchHotels());
-                          print("jsadnalkd");
+
                         }
                         if (state is HomeLoaded) {
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: data.length,
+                              itemCount: state.data.length,
                               itemBuilder: (context, index) {
                                 return CardItem(
                                   onTap: () {
                                     Navigator.of(context).pushNamed('/detail',
-                                        arguments: data[index].id);
+                                        arguments: state.data[index].id);
                                   },
-                                  address: data[index].address,
-                                  isFavorite: data[index].isFavorite,
-                                  imagePath: data[index].background,
+                                  address: state.data[index].address,
+                                  imagePath: state.data[index].images[0],
                                   itemName: state.data[index].name,
                                   price: state.data[index].price.toString(),
-                                  rating: data[index].rating,
+                                  rating: state.data[index].rating,
                                 );
                               });
                         }
@@ -236,27 +235,37 @@ class HomePage extends StatelessWidget {
                     height: 10,
                   ),
                   Expanded(
-                    child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            childAspectRatio: 9 / 12),
-                        itemCount: data.length,
-                        itemBuilder: (context, index) {
-                          return CardItem(
-                            onTap: () {
-                              Navigator.of(context).pushNamed('/detail',
-                                  arguments: data[index].id);
-                            },
-                            address: data[index].address,
-                            isFavorite: data[index].isFavorite,
-                            imagePath: data[index].background,
-                            itemName: data[index].name,
-                            price: data[index].price.toString(),
-                            rating: data[index].rating,
-                          );
-                        }),
+                    child: BlocBuilder<HomeBloc, HomeState>(
+                      builder: (context, state) {
+                        if (state is HomeInitial) {
+                          context.read<HomeBloc>().add(FetchHotels());
+                        }
+                        if (state is HomeLoaded) {
+                          return GridView.builder(
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                  childAspectRatio: 9 / 12),
+                              itemCount: state.data.length,
+                              itemBuilder: (context, index) {
+                                return CardItem(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed('/detail',
+                                        arguments: state.data[index].id);
+                                  },
+                                  address: state.data[index].address,
+                                  imagePath: state.data[index].images[0],
+                                  itemName: state.data[index].name,
+                                  price: state.data[index].price.toString(),
+                                  rating: state.data[index].rating,
+                                );
+                              });
+                        }
+
+                        return const CircularProgressIndicator();
+                      }
+                    ),
                   ),
                 ],
               ),

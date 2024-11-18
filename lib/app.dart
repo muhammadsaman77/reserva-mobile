@@ -1,4 +1,7 @@
 import 'package:booking_app/bloc/auth/auth_bloc.dart';
+import 'package:booking_app/bloc/choice/choice_cubit.dart';
+import 'package:booking_app/bloc/date_picker/date_picker_bloc.dart';
+import 'package:booking_app/bloc/detail/detail_bloc.dart';
 import 'package:booking_app/bloc/home/home_bloc.dart';
 import 'package:booking_app/bloc/scroll/scroll_cubit.dart';
 import 'package:booking_app/bloc/splash/splash_bloc.dart';
@@ -12,9 +15,8 @@ import 'package:booking_app/presentation/screens/profile/edit_profile.dart';
 import 'package:booking_app/presentation/screens/signup/signup_page.dart';
 import 'package:booking_app/presentation/screens/splash_page.dart';
 import 'package:booking_app/presentation/screens/success_page.dart';
-import 'package:booking_app/repository/api_client.dart';
+import 'package:booking_app/presentation/screens/webview.dart';
 import 'package:booking_app/repository/auth_repository.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,8 +27,8 @@ import 'bloc/bottom_navigation/bottom_navigation_bloc.dart';
 class App extends StatelessWidget {
   final AuthRepository authRepository;
 
-  final ApiClient apiClient;
-   App({super.key, required this.authRepository}): apiClient = ApiClient(Dio());
+
+   App({super.key, required this.authRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,10 @@ class App extends StatelessWidget {
           BlocProvider(create: (_)=>BottomNavigationBloc()),
           BlocProvider(create: (_)=>ScrollCubit()),
           BlocProvider(create: (_)=> SplashBloc()..add(SplashStarted())),
-          BlocProvider(create: (_)=>HomeBloc(apiClient.homeRepository)),
+          BlocProvider(create: (_)=>HomeBloc()),
+          BlocProvider(create: (_)=>DetailBloc()),
+          BlocProvider(create: (_)=>ChoiceCubit()),
+          BlocProvider(create: (_)=>DatePickerCubit()),
         ],
         child: const AppView(),
 
@@ -67,6 +72,7 @@ class AppView extends StatelessWidget {
         '/splash': (context) =>  SplashPage(),
         '/booking-detail': (context) =>  BookingDetail(),
         '/edit-profile': (context) =>  EditProfilePage(),
+        '/webview': (context) => const WebViewScreen(),
       },
       initialRoute: '/splash',
     );

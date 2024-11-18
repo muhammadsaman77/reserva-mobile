@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:booking_app/app.dart';
-import 'package:booking_app/repository/api_client.dart';
 import 'package:booking_app/repository/auth_repository.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 import 'bloc/app_observer.dart';
 import 'package:booking_app/firebase_options.dart';

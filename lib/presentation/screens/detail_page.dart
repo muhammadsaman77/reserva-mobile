@@ -1,6 +1,6 @@
+import 'package:booking_app/bloc/detail/detail_bloc.dart';
 import 'package:booking_app/bloc/scroll/scroll_cubit.dart';
 import 'package:booking_app/constant/color.dart';
-import 'package:booking_app/data/dummy/home_data.dart';
 import 'package:booking_app/presentation/widgets/booking_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,18 +14,20 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int id = ModalRoute.of(context)!.settings.arguments as int;
-    final data = hotels[id - 1];
+    final String id = ModalRoute.of(context)!.settings.arguments as String;
+    context.read<DetailBloc>().add(FetchDetailHotel(id));
+
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Detail',
-            style: TextStyle(
-                color: blackNormal, fontSize: 16, fontWeight: FontWeight.w600),
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        title: Text(
+          'Detail',
+          style: TextStyle(
+              color: blackNormal, fontSize: 16, fontWeight: FontWeight.w600),
         ),
-        body: Stack(children: [
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
           BlocListener<ScrollCubit, bool>(
             listener: (context, state) {
               _scrollController.addListener(() {
@@ -43,135 +45,129 @@ class DetailPage extends StatelessWidget {
                 return SingleChildScrollView(
                   controller: _scrollController,
                   child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Image(
-                                  image: AssetImage(
-                                    data.background,
-                                  ),
-                                  fit: BoxFit.cover,
-                                  width: MediaQuery.of(context).size.width,
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
+                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    child: BlocBuilder<DetailBloc, DetailState>(
+                      builder: (context, state) {
+                        if (state is DetailLoading) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (state is DetailLoaded) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  data.name,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
+                                SizedBox(height: 10),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  child: Image(
+                                    image: NetworkImage(state.hotel.images[0]),
+                                    fit: BoxFit.cover,
+                                    width: MediaQuery.of(context).size.width,
+                                  ),
                                 ),
-                                const Spacer(),
+                                SizedBox(height: 20),
                                 Row(
                                   children: [
                                     Text(
-                                      "Rp " + data.price.toString(),
+                                      state.hotel.name,
                                       style: TextStyle(
-                                          color: blueNormal,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Rp " + state.hotel.price.toString(),
+                                          style: TextStyle(
+                                              color: blueNormal,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Text(
+                                          " /night",
+                                          style: TextStyle(color: lighter),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/icons/location.svg",
+                                      width: 20,
+                                      height: 20,
+                                      colorFilter: ColorFilter.mode(
+                                          blueNormal, BlendMode.srcIn),
                                     ),
                                     Text(
-                                      " /night",
-                                      style: TextStyle(color: lighter),
-                                    )
+                                      state.hotel.address,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: lighter),
+                                    ),
                                   ],
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  "assets/icons/location.svg",
-                                  width: 20,
-                                  height: 20,
-                                  colorFilter: ColorFilter.mode(
-                                      blueNormal, BlendMode.srcIn),
                                 ),
+                                const SizedBox(height: 20),
                                 Text(
-                                  data.address,
+                                  "Description",
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.w400),
+                                ),
+                                SizedBox(height: 12),
+                                Text(
+                                  state.hotel.description,
                                   style: TextStyle(
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w300,
                                       color: lighter),
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  'Preview',
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(height: 12),
+                                SizedBox(
+                                  height: 100,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: state.hotel.images.length,
+                                    itemBuilder: (context, index) {
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width /
+                                                3,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(8.0),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      state.hotel.images[index]),
+                                                  fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                          index != state.hotel.images.length - 1
+                                              ? const SizedBox(width: 10)
+                                              : const SizedBox.shrink()
+                                        ],
+                                      );
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "Description",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            Text(
-                              data.description,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: lighter),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              'Preview',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            SizedBox(
-                              height: 100,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: data.previewImages.length,
-                                  itemBuilder: (context, index) {
-                                    return Row(
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              image: DecorationImage(
-                                                  image: AssetImage(data
-                                                      .previewImages[index]),
-                                                  fit: BoxFit.cover)),
-                                        ),
-                                        index != data.previewImages.length - 1
-                                            ? const SizedBox(
-                                                width: 10,
-                                              )
-                                            : const SizedBox.shrink()
-                                      ],
-                                    );
-                                  }),
-                            ),
-                          ]),
+                          );
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      },
                     ),
                   ),
                 );
@@ -190,33 +186,38 @@ class DetailPage extends StatelessWidget {
                   duration: Duration(milliseconds: 300),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        backgroundColor: blueNormal,
-                        foregroundColor: Colors.white),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      backgroundColor: blueNormal,
+                      foregroundColor: Colors.white,
+                    ),
                     onPressed: () {
                       showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return BookingDialog(
-                              roomType: data.name,
-                              price: data.price.toString(),
-                              description: data.description,
-                              image: data.background,
-                            );
-                          });
+                        context: context,
+
+                        builder: (context) {
+
+                                return  BookingDialog(
+                                );
+
+
+
+
+                        },
+                      );
                     },
                     child: Text(
                       'Booking Now',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
               );
             },
-          )
-        ]));
+          ),
+        ],
+      ),
+    );
   }
 }

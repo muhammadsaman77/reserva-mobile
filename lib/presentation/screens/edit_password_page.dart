@@ -105,6 +105,6 @@ class ChangePasswordPage extends StatelessWidget {
         ),
       ),
     );
-    ;
+
   }
 }

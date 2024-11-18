@@ -1,6 +1,5 @@
 import 'package:booking_app/constant/color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CardBooking extends StatelessWidget {
   final int id;

@@ -7,7 +7,6 @@ class CardItem extends StatelessWidget {
   final String itemName;
   final String price;
   final double rating;
-  final bool isFavorite;
   final String address;
   final void Function()? onTap;
 
@@ -17,7 +16,7 @@ class CardItem extends StatelessWidget {
     required this.itemName,
     required this.price,
     required this.rating,
-    required this.isFavorite,
+
     required this.address,
     this.onTap,
   });
@@ -42,7 +41,7 @@ class CardItem extends StatelessWidget {
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(15.0)),
                   child: Image(
-                    image: AssetImage(imagePath),
+                    image: NetworkImage(imagePath),
                     fit: BoxFit.cover,
                     width: MediaQuery.of(context).size.width * 2 / 3,
                   ),

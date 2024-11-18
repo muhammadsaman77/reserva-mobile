@@ -90,6 +90,6 @@ class EditProfilePage extends StatelessWidget {
         ),
       ),
     );
-    ;
+
   }
 }

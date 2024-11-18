@@ -5,9 +5,9 @@ import 'package:booking_app/presentation/widgets/card_booking.dart';
 import 'package:flutter/material.dart';
 
 class BookingPage extends StatelessWidget {
-  List<BookingData> data = bookingData;
+  final List<BookingData> data = bookingData;
 
-  BookingPage({super.key});
+   BookingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,15 +7,12 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final HomeRepository homeRepository;
-  HomeBloc(this.homeRepository) : super(HomeInitial()) {
+  final HomeRepository homeRepository = HomeRepository();
+  HomeBloc() : super(HomeInitial()) {
     on<FetchHotels>((event, emit) async{
       try {
         emit(HomeLoading());
         List<Hotel> response = await homeRepository.getHotels();
-
-        print(response);
-
 
         emit(HomeLoaded(response));
 
