@@ -2,7 +2,7 @@ import 'package:booking_app/constant/color.dart';
 import 'package:flutter/material.dart';
 
 class CardBooking extends StatelessWidget {
-  final int id;
+  final String? id;
   final String image;
   final String name;
   final String price;
@@ -35,7 +35,7 @@ class CardBooking extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image(
-              image: AssetImage(image),
+              image: NetworkImage(image),
               width: MediaQuery.of(context).size.width * 2.5/ 12,
               height: MediaQuery.of(context).size.width *2.5/ 12,
               fit: BoxFit.cover,

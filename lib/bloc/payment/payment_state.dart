@@ -17,6 +17,10 @@ class PaymentSuccess extends PaymentState{
   @override
   List<Object?> get props => [snapToken];
 }
+class PaymentStatusLoaded extends PaymentState {
+  final Map<String, dynamic> status;
+  PaymentStatusLoaded(this.status);
+}
 
 class PaymentError extends PaymentState{
   final String error;

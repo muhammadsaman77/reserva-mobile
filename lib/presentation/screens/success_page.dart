@@ -1,5 +1,8 @@
+import 'package:booking_app/app.dart';
+import 'package:booking_app/bloc/payment/payment_bloc.dart';
 import 'package:booking_app/constant/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SuccessPage extends StatelessWidget {
@@ -7,8 +10,7 @@ class SuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
@@ -45,14 +47,15 @@ class SuccessPage extends StatelessWidget {
                   )
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/');
+                    Navigator.pushReplacementNamed(context, '/');
+
                 },
                 child: Text("Back To Home",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
               ),
             )
           ],
         ),
-      ),
+
     );
   }
 }

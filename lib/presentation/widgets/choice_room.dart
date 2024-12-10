@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class ChoiceRoom extends StatelessWidget {
   final List<Room> choices;
+
   final Room? selectedValue;
   final void Function(Room?) setSelectedValue;
 

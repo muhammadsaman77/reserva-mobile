@@ -15,10 +15,19 @@ class DetailLoading extends DetailState{}
 class DetailLoaded extends DetailState {
   final Hotel hotel;
   final List<Room> rooms;
-  const DetailLoaded(this.hotel, this.rooms);
+  final String heroImage;
+  const DetailLoaded(this.hotel, this.rooms,this.heroImage);
 
   @override
-  List<Object> get props => [hotel, rooms];
+  List<Object> get props => [hotel, rooms, heroImage];
+
+  DetailLoaded copyWith({Hotel? hotel, List<Room>? rooms, String? heroImage}) {
+    return DetailLoaded(
+        hotel ?? this.hotel,
+        rooms ?? this.rooms,
+        heroImage ?? this.heroImage
+    );
+  }
 }
 
 class DetailError extends DetailState {

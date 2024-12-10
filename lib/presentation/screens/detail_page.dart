@@ -2,6 +2,7 @@ import 'package:booking_app/bloc/detail/detail_bloc.dart';
 import 'package:booking_app/bloc/scroll/scroll_cubit.dart';
 import 'package:booking_app/constant/color.dart';
 import 'package:booking_app/presentation/widgets/booking_dialog.dart';
+import 'package:booking_app/util/string_manipulation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +61,7 @@ class DetailPage extends StatelessWidget {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(15.0),
                                   child: Image(
-                                    image: NetworkImage(state.hotel.images[0]),
+                                    image: NetworkImage(state.heroImage),
                                     fit: BoxFit.cover,
                                     width: MediaQuery.of(context).size.width,
                                   ),
@@ -69,7 +70,7 @@ class DetailPage extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      state.hotel.name,
+                                      toTitleCase(state.hotel.name),
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500),
@@ -140,18 +141,26 @@ class DetailPage extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       return Row(
                                         children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width /
-                                                3,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(8.0),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      state.hotel.images[index]),
-                                                  fit: BoxFit.cover),
+                                          GestureDetector(
+                                            onTap: ()
+                                      {
+                                        context.read<DetailBloc>().add(
+                                            ChangeHeroImage(
+                                                state.hotel.images[index]));
+                                      },
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                                  3,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(8.0),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        state.hotel.images[index]),
+                                                    fit: BoxFit.cover),
+                                              ),
                                             ),
                                           ),
                                           index != state.hotel.images.length - 1
@@ -195,15 +204,11 @@ class DetailPage extends StatelessWidget {
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
-
+                        isScrollControlled: true,
                         builder: (context) {
 
                                 return  BookingDialog(
                                 );
-
-
-
-
                         },
                       );
                     },

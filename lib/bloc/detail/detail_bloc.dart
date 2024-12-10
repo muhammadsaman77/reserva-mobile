@@ -16,13 +16,23 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         emit(DetailLoading());
         Hotel hotel = await detailRepository.getDetailHotel(event.id);
         List<Room> room = await detailRepository.getRooms(event.id);
-        print(room);
-        emit(DetailLoaded(hotel, room));
+
+        emit(DetailLoaded(hotel, room,hotel.images[0]));
       }catch(e){
-        print(e);
+
         emit(DetailError(e.toString()));
       }
 
     });
+    on<ChangeHeroImage>((event, emit)async{
+      if (state is DetailLoaded) {
+        final currentState = state as DetailLoaded;
+        emit(currentState.copyWith(heroImage: event.image));
+      }
+    }
+
+
+
+    );
   }
 }

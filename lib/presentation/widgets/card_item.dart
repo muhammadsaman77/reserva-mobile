@@ -1,4 +1,5 @@
 import 'package:booking_app/constant/color.dart';
+import 'package:booking_app/util/string_manipulation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -54,7 +55,7 @@ class CardItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(itemName,
+                          Text(toTitleCase( itemName),
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w500)),
                           Row(

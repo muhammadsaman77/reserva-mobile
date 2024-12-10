@@ -23,7 +23,7 @@ class Hotel extends Equatable {
 
   });
   factory Hotel.fromJson(Map<String, dynamic> json, String id) => Hotel(
-    id: id,
+      id: id,
     name: json["name"],
     description: json["description"],
     price: json["price"],

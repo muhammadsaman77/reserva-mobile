@@ -72,87 +72,24 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(color: whiteActive, width: 1),
                         )),
-                    onPressed: () {},
-                    child: SvgPicture.asset(
-                      "assets/icons/notification-bing.svg",
-                      width: 24,
-                      colorFilter:
-                          ColorFilter.mode(blackNormal, BlendMode.srcIn),
-                      height: 24,
-                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed("/search");
+                    },
+                    child: Icon(Icons.search),
                   )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              height: 40,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(90, 40),
-                      padding: EdgeInsets.zero,
-                      foregroundColor: Colors.white,
-                      elevation: 0.5,
-                      backgroundColor: blueNormal,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Text("Hotel"),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(90, 40),
-                      padding: EdgeInsets.zero,
-                      foregroundColor: lighter,
-                      elevation: 0.5,
-                      backgroundColor: light,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Text("Homestay"),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(90, 40),
-                      padding: EdgeInsets.zero,
-                      foregroundColor: lighter,
-                      elevation: 0.5,
-                      backgroundColor: light,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Text("Apart"),
-                  ),
                 ],
               ),
             ),
             SizedBox(
               height: 10,
             ),
-            Divider(
-              color: lighter,
-              thickness: 0.3,
-            ),
-            SizedBox(
-              height: 5,
-            ),
+
+
+            // Divider(
+            //   color: lighter,
+            //   thickness: 0.3,
+            // ),
+
             Container(
               height: 330,
               child: Column(

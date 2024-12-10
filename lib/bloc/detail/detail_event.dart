@@ -12,8 +12,17 @@ abstract class DetailEvent extends Equatable {
 class FetchDetailHotel extends DetailEvent{
   final String id;
 
-  FetchDetailHotel(this.id);
+  const FetchDetailHotel(this.id);
 
   @override
   List<Object> get props => [id];
+}
+
+class ChangeHeroImage extends DetailEvent{
+  final String image;
+
+  const ChangeHeroImage(this.image);
+
+  @override
+  List<Object> get props => [image];
 }

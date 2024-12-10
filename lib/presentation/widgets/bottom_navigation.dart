@@ -1,3 +1,4 @@
+import 'package:booking_app/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +14,7 @@ class BottomNavigation extends StatelessWidget {
       builder: (context, state) {
         return BottomNavigationBar(
         currentIndex: state.index,
+        selectedItemColor: blueNormal,
         onTap: (index) {
           if (index == 0) {
             context.read<BottomNavigationBloc>().add(const ChangeBottomNav(NavbarItems.home));

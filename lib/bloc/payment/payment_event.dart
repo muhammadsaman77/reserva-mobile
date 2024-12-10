@@ -11,17 +11,31 @@ class StartTransaction  extends PaymentEvent {
   final String orderId;
   final int grossAmount;
 
-  const StartTransaction(this.orderId, this.grossAmount);
+  const StartTransaction({required this.orderId,required this.grossAmount});
 
   @override
   List<Object> get props => [orderId, grossAmount];
 }
+class CheckTransactionStatus extends PaymentEvent {
+  final String orderId;
+  final String roomId;
+  final String hotelId;
+  final DateTime startDate;
+  final DateTime endDate;
 
-class TransactionCompleted extends PaymentEvent {
-  final bool success;
-
-  TransactionCompleted({required this.success});
+  const CheckTransactionStatus({
+    required this.orderId,
+    required this.roomId,
+    required this.hotelId,
+    required this.startDate,
+    required this.endDate
+});
 
   @override
-  List<Object> get props => [success];
+  List<Object> get props => [orderId,roomId,startDate,endDate];
+}
+class TransactionCompleted extends PaymentEvent {
+
+  TransactionCompleted();
+
 }
