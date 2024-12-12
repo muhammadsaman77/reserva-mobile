@@ -1,3 +1,4 @@
+import 'package:booking_app/bloc/booking_history/booking_history_bloc.dart';
 import 'package:booking_app/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,7 @@ class BottomNavigation extends StatelessWidget {
             context.read<BottomNavigationBloc>().add(const ChangeBottomNav(NavbarItems.home));
           } else if (index == 1) {
             context.read<BottomNavigationBloc>().add(const ChangeBottomNav(NavbarItems.schedule));
+            context.read<BookingHistoryBloc>().add(LoadBookingHistory());
           } else if (index == 2) {
             context.read<BottomNavigationBloc>().add(const ChangeBottomNav(NavbarItems.profile));
           }

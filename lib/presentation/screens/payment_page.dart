@@ -1,5 +1,5 @@
 import 'package:booking_app/bloc/choice/choice_cubit.dart';
-import 'package:booking_app/bloc/date_picker/date_picker_bloc.dart';
+import 'package:booking_app/bloc/date_picker/date_picker_cubit.dart';
 import 'package:booking_app/bloc/payment/payment_bloc.dart';
 import 'package:booking_app/config/api_config.dart';
 import 'package:booking_app/presentation/screens/success_page.dart';
@@ -28,14 +28,7 @@ class PaymentPage extends StatelessWidget {
         ),
         body:
             BlocConsumer<PaymentBloc, PaymentState>(listener: (context, state) {
-          // if (state is PaymentStatusLoaded) {
-          //   final transactionStatus = state.status["transaction_status"];
-          //   if (transactionStatus == "settlement" ||
-          //       transactionStatus == "capture") {
-          //   } else {
-          //
-          //   }
-          // }
+
         }, builder: (context, state) {
           if (state is PaymentSuccess) {
             return WebViewWidget(

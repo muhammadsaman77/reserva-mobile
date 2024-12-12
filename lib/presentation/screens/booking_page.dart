@@ -7,65 +7,67 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookingPage extends StatelessWidget {
-  final List<BookingData> data = bookingData;
 
-  BookingPage({super.key});
+
+  const BookingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-  
-            SizedBox(height: 10),
-            Text(
-              "My Booking",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-            Expanded(
-              child: BlocBuilder<BookingHistoryBloc, BookingHistoryState>(
-                  builder: (context, state) {
-                if (state is BookingHistoryInitial) {
-                  context.read<BookingHistoryBloc>().add(LoadBookingHistory());
-                }
-                if (state is BookingHistoryLoaded) {
-                  print("anjay");
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
 
-                  return ListView.builder(
-                    itemCount: state.bookingHistory.length,
-                    itemBuilder: (context, index) {
+          Expanded(
+            child: BlocBuilder<BookingHistoryBloc, BookingHistoryState>(
+                builder: (context, state) {
+              if (state is BookingHistoryLoaded) {
 
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: 5,
-                          ),
-                          CardBooking(
-                            id: state.bookingHistory[index].id,
-                            image: state.bookingHistory[index].hotel.images[0],
-                            date:  state.bookingHistory[index].startDate.toString() ,
-                            name: state.bookingHistory[index].hotel.name,
-                            price: state.bookingHistory[index].hotel.price.toString(),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          )
-                        ],
-                      );
-                    },
-                  );
-                }
+                return ListView.builder(
+                  itemCount: state.bookingHistory.length,
+                  itemBuilder: (context, index) {
 
-                return Center(
-                  child: CircularProgressIndicator(),
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        CardBooking(
+                          id: state.bookingHistory[index].id,
+                          image: state.bookingHistory[index].hotel!.images[0],
+                          startDate: state.bookingHistory[index].startDate,
+                          endDate: state.bookingHistory[index].endDate,
+                          name: state.bookingHistory[index].hotel!.name,
+                          price: state.bookingHistory[index].hotel!.price.toString(),
+                          onTap: () {
+                            Navigator.of(context).pushNamed('/detail',
+                                arguments: {
+                                  'id': state.bookingHistory[index].hotel!.id,
+                                  'is_history': true,
+                                  'room': state.bookingHistory[index].room!.name,
+                                  'start_date': state.bookingHistory[index].startDate,
+                                  'end_date': state.bookingHistory[index].endDate
+
+                                }
+                                );
+                          },
+                        ),
+                        SizedBox(
+                          height: 5,
+                        )
+                      ],
+                    );
+                  },
                 );
-              }),
-            ),
-          ],
-        ),
+              }
+
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }

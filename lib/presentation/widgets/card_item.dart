@@ -1,7 +1,6 @@
 import 'package:booking_app/constant/color.dart';
 import 'package:booking_app/util/string_manipulation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class CardItem extends StatelessWidget {
   final String imagePath;
@@ -58,19 +57,19 @@ class CardItem extends StatelessWidget {
                           Text(toTitleCase( itemName),
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w500)),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/icons/star.svg',
-                                colorFilter: ColorFilter.mode(
-                                    Colors.yellow, BlendMode.srcIn),
-                              ),
-                              Text(rating.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700)),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     SvgPicture.asset(
+                          //       'assets/icons/star.svg',
+                          //       colorFilter: ColorFilter.mode(
+                          //           Colors.yellow, BlendMode.srcIn),
+                          //     ),
+                          //     Text(rating.toString(),
+                          //         style: TextStyle(
+                          //             fontSize: 12,
+                          //             fontWeight: FontWeight.w700)),
+                          //   ],
+                          // ),
                         ],
                       ),
                       Text(

@@ -14,6 +14,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     on< FetchDetailHotel>((event, emit) async{
       try{
         emit(DetailLoading());
+
         Hotel hotel = await detailRepository.getDetailHotel(event.id);
         List<Room> room = await detailRepository.getRooms(event.id);
 

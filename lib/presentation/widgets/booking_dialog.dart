@@ -1,8 +1,10 @@
 import 'package:booking_app/bloc/choice/choice_cubit.dart';
-import 'package:booking_app/bloc/date_picker/date_picker_bloc.dart';
+import 'package:booking_app/bloc/date_picker/date_picker_cubit.dart';
+
 import 'package:booking_app/bloc/detail/detail_bloc.dart';
 import 'package:booking_app/constant/color.dart';
 import 'package:booking_app/presentation/widgets/choice_room.dart';
+import 'package:booking_app/util/datetime_manipulation.dart';
 import 'package:booking_app/util/generateId.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,20 +22,14 @@ class BookingDialog extends StatelessWidget {
         if (state is DetailLoaded) {
           final rooms = state.rooms;
 
-          choiceCubit.updateRooms(
-              rooms,
-            state.hotel.id
-          );
+          choiceCubit.updateRooms(rooms, state.hotel.id);
         }
       },
       child: BlocBuilder<DetailBloc, DetailState>(
         builder: (context, state) {
           if (state is DetailLoaded) {
             return Container(
-              height: context
-                  .watch<DatePickerCubit>()
-                  .state
-                  .isDatePickerVisible
+              height: context.watch<DatePickerCubit>().state.isDatePickerVisible
                   ? 600
                   : 300,
               padding: EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 8),
@@ -81,14 +77,8 @@ class BookingDialog extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           child: Image(
                             image: NetworkImage(state.hotel.images[0]),
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 3,
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 3,
+                            width: MediaQuery.of(context).size.width / 3,
+                            height: MediaQuery.of(context).size.width / 3,
                             fit: BoxFit.cover,
                           )),
                       SizedBox(
@@ -119,31 +109,15 @@ class BookingDialog extends StatelessWidget {
                                     child: BlocBuilder<DatePickerCubit,
                                         DatePickerState>(
                                       builder: (context, dateState) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            context
-                                                .read<DatePickerCubit>()
-                                                .toggleDatePickerVisibility();
-                                          },
-                                          child: TextField(
-                                            enabled: false,
+                                        return Text(
+                                            dateState.startDate != null &&
+                                                    dateState.endDate != null
+                                                ? "${convertDatetimeFormat(dateState.startDate)} to ${convertDatetimeFormat(dateState.endDate)}"
+                                                : "Select Date Range",
                                             style: TextStyle(
                                               fontSize: 12,
-                                            ),
-                                            decoration: InputDecoration(
-                                              hintText: dateState.startDate !=
-                                                  null &&
-                                                  dateState.endDate !=
-                                                      null
-                                                  ? "${dateState.startDate
-                                                  ?.toLocal().toString().split(
-                                                  ' ')[0]} - ${dateState.endDate
-                                                  ?.toLocal().toString().split(
-                                                  ' ')[0]}"
-                                                  : "Select Date Range",
-                                            ),
-                                          ),
-                                        );
+                                              color: lighter
+                                            ));
                                       },
                                     ),
                                   ),
@@ -155,6 +129,7 @@ class BookingDialog extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(height: 12,),
                   BlocBuilder<DatePickerCubit, DatePickerState>(
                     builder: (context, datePickerState) {
                       if (!datePickerState.isDatePickerVisible)
@@ -163,8 +138,22 @@ class BookingDialog extends StatelessWidget {
                         elevation: 4,
                         borderRadius: BorderRadius.circular(8),
                         child: SfDateRangePicker(
-                          selectionMode:
-                          DateRangePickerSelectionMode.range,
+                          selectionMode: DateRangePickerSelectionMode.range,
+                          minDate: DateTime.now(),
+                          monthViewSettings: DateRangePickerMonthViewSettings(
+                            blackoutDates: context.read<DatePickerCubit>().state.blackoutDates,
+                          ),monthCellStyle: const DateRangePickerMonthCellStyle(
+
+                          blackoutDatesDecoration: BoxDecoration(
+                            color: lighter, // Latar belakang merah
+                            shape: BoxShape.circle, // Bentuk lingkaran
+                          ),
+
+                          blackoutDateTextStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                           onSelectionChanged: (args) {
                             if (args.value is PickerDateRange) {
                               final dateRange = args.value as PickerDateRange;
@@ -172,31 +161,24 @@ class BookingDialog extends StatelessWidget {
                               context.read<DatePickerCubit>().updateDateRange(
                                   dateRange.startDate!,
                                   dateRange.endDate ?? dateRange.startDate!);
-                              context.read<DatePickerCubit>()
-                                  .toggleDatePickerVisibility();
+
                             }
                           },
-                          initialSelectedRange: PickerDateRange(
-                            DateTime.now(),
-                            DateTime.now(),
-                          ),
+
                         ),
                       );
                     },
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      var room = context
-                          .read<ChoiceCubit>()
-                          .state
-                          .selectedValue;
-                      var dateRange = context
-                          .read<DatePickerCubit>()
-                          .state;
-                      var difference = dateRange.endDate!.difference(
-                          dateRange.startDate!).inDays + 1;
+                      var room =
+                          context.read<ChoiceCubit>().state.selectedValue;
+                      var dateRange = context.read<DatePickerCubit>().state;
+                      var difference = dateRange.endDate!
+                              .difference(dateRange.startDate!)
+                              .inDays +
+                          1;
                       var price = state.hotel.price * difference;
-                      print(room);
                       Navigator.of(context).pushNamed('/payment', arguments: {
                         'orderId': generateOrderId(),
                         'grossAmount': price,

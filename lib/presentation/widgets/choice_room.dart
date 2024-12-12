@@ -20,7 +20,6 @@ class ChoiceRoom extends StatelessWidget {
       itemCount: choices.length,
       itemBuilder: (state, i) {
         return ChoiceChip(
-
           selected: state.selected(choices[i]),
           onSelected: state.onSelected(choices[i]),
           label: Text(choices[i].name),

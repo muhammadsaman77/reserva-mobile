@@ -51,8 +51,16 @@ class BookingRepository {
 
         bookingHistoryList.add(bookingHistory);
       }
-  print(bookingHistoryList);
       return bookingHistoryList;
+    } catch (e) {
+      throw Exception('Failed to fetch bookings: $e');
+    }
+  }
+  Future<List<BookingHistory>> getBookingByRoomId(String roomId) async {
+    try {
+      final response = await _db.collection("bookings").where("room_id",isEqualTo: roomId).get();
+      return response.docs.map((e) => BookingHistory(startDate: DateTime.parse( e.data()["start_date"]), endDate:DateTime.parse( e.data()["end_date"]))).toList();
+
     } catch (e) {
       throw Exception('Failed to fetch bookings: $e');
     }

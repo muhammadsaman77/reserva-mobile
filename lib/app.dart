@@ -1,14 +1,17 @@
 import 'package:booking_app/bloc/auth/auth_bloc.dart';
 import 'package:booking_app/bloc/booking_history/booking_history_bloc.dart';
 import 'package:booking_app/bloc/choice/choice_cubit.dart';
-import 'package:booking_app/bloc/date_picker/date_picker_bloc.dart';
+import 'package:booking_app/bloc/date_picker/date_picker_cubit.dart';
 import 'package:booking_app/bloc/detail/detail_bloc.dart';
 import 'package:booking_app/bloc/home/home_bloc.dart';
+import 'package:booking_app/bloc/password/password_cubit.dart';
 import 'package:booking_app/bloc/payment/payment_bloc.dart';
+import 'package:booking_app/bloc/profile/profile_cubit.dart';
 import 'package:booking_app/bloc/scroll/scroll_cubit.dart';
 import 'package:booking_app/bloc/search/search_bloc.dart';
 import 'package:booking_app/bloc/splash/splash_bloc.dart';
 import 'package:booking_app/presentation/screens/booking_detail.dart';
+import 'package:booking_app/presentation/screens/chat_page.dart';
 import 'package:booking_app/presentation/screens/edit_password_page.dart';
 import 'package:booking_app/presentation/screens/detail_page.dart';
 import 'package:booking_app/presentation/screens/forgot_password_page.dart';
@@ -29,7 +32,7 @@ import 'bloc/bottom_navigation/bottom_navigation_bloc.dart';
 
 class App extends StatelessWidget {
   final AuthRepository authRepository;
-
+  final DatePickerCubit datePickerCubit = DatePickerCubit();
   App({super.key, required this.authRepository});
 
   @override
@@ -46,11 +49,13 @@ class App extends StatelessWidget {
           BlocProvider(create: (_) => SplashBloc()..add(SplashStarted())),
           BlocProvider(create: (_) => HomeBloc()),
           BlocProvider(create: (_) => DetailBloc()),
-          BlocProvider(create: (_) => ChoiceCubit()),
-          BlocProvider(create: (_) => DatePickerCubit()),
+          BlocProvider(create: (_) => ChoiceCubit(datePickerCubit)),
+          BlocProvider(create: (_) => datePickerCubit),
           BlocProvider(create: (_) => PaymentBloc()),
           BlocProvider(create: (_)=> BookingHistoryBloc()),
-          BlocProvider(create: (_)=> SearchBloc())
+          BlocProvider(create: (_)=> SearchBloc()),
+          BlocProvider(create: (_)=> PasswordCubit()),
+          BlocProvider(create: (_)=> ProfileCubit()),
         ],
         child: const AppView(),
       ),
@@ -64,6 +69,7 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: _themeData(),
       routes: {
         '/signup': (context) => SignupPage(),
@@ -72,12 +78,14 @@ class AppView extends StatelessWidget {
         '/forgot-password': (context) => const ForgotPasswordPage(),
         '/change-password': (context) => const ChangePasswordPage(),
         '/success': (context) => const SuccessPage(),
-        '/': (context) => const MainPage(),
+        '/': (context) =>  MainPage(),
         '/splash': (context) => SplashPage(),
         '/booking-detail': (context) => BookingDetail(),
         '/edit-profile': (context) => EditProfilePage(),
         '/search': (context)=> SearchPage(),
         '/payment': (context) => const PaymentPage(),
+        '/chat': (context) => ChatPage(),
+
       },
       initialRoute: '/splash',
     );

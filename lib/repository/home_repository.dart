@@ -10,8 +10,6 @@ class HomeRepository {
 
     if (query != null && query.isNotEmpty) {
       response = await collectionRef.get();
-
-      // Filter berdasarkan apakah query ada di mana saja dalam nama hotel
       final filteredHotels = response.docs.where((doc) {
         final hotelName = doc.data()['name'] ?? '';
         return hotelName.toLowerCase().contains(query.toLowerCase());

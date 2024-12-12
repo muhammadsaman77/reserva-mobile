@@ -6,12 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPage extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
-  final ValueNotifier<String> _searchQuery = ValueNotifier('');
+
 
   SearchPage ({super.key});
-  void _onSearch(String query) {
-    _searchQuery.value = query;
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
