@@ -5,7 +5,7 @@ import 'package:booking_app/bloc/detail/detail_bloc.dart';
 import 'package:booking_app/constant/color.dart';
 import 'package:booking_app/presentation/widgets/choice_room.dart';
 import 'package:booking_app/util/datetime_manipulation.dart';
-import 'package:booking_app/util/generateId.dart';
+import 'package:booking_app/util/generate_id.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -32,34 +32,34 @@ class BookingDialog extends StatelessWidget {
               height: context.watch<DatePickerCubit>().state.isDatePickerVisible
                   ? 600
                   : 300,
-              padding: EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 8),
+              padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Book your desired room",
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         "Choose the best room for you",
                         style: TextStyle(
                             color: lighter,
                             fontSize: 12,
                             fontWeight: FontWeight.w300),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         children: [
                           Text(
-                            "Rp " + state.hotel.price.toString(),
-                            style: TextStyle(
+                            "Rp ${state.hotel.price}",
+                            style: const TextStyle(
                                 color: blueNormal,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700),
                           ),
-                          Text(
+                          const Text(
                             " /night",
                             style: TextStyle(color: lighter),
                           )
@@ -67,7 +67,7 @@ class BookingDialog extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -81,7 +81,7 @@ class BookingDialog extends StatelessWidget {
                             height: MediaQuery.of(context).size.width / 3,
                             fit: BoxFit.cover,
                           )),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Column(
@@ -103,7 +103,7 @@ class BookingDialog extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Text("Date: "),
+                                  const Text("Date: "),
                                   SizedBox(
                                     width: 150,
                                     child: BlocBuilder<DatePickerCubit,
@@ -114,7 +114,7 @@ class BookingDialog extends StatelessWidget {
                                                     dateState.endDate != null
                                                 ? "${convertDatetimeFormat(dateState.startDate)} to ${convertDatetimeFormat(dateState.endDate)}"
                                                 : "Select Date Range",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 12,
                                               color: lighter
                                             ));
@@ -129,11 +129,12 @@ class BookingDialog extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 12,),
+                  const SizedBox(height: 12,),
                   BlocBuilder<DatePickerCubit, DatePickerState>(
                     builder: (context, datePickerState) {
-                      if (!datePickerState.isDatePickerVisible)
+                      if (!datePickerState.isDatePickerVisible) {
                         return Container();
+                      }
                       return Material(
                         elevation: 4,
                         borderRadius: BorderRadius.circular(8),
@@ -171,8 +172,6 @@ class BookingDialog extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      var room =
-                          context.read<ChoiceCubit>().state.selectedValue;
                       var dateRange = context.read<DatePickerCubit>().state;
                       var difference = dateRange.endDate!
                               .difference(dateRange.startDate!)
@@ -184,23 +183,23 @@ class BookingDialog extends StatelessWidget {
                         'grossAmount': price,
                       });
                     },
-                    child: Center(
-                      child: Text('Booking'),
-                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: blueNormal,
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
+                    ),
+                    child: const Center(
+                      child: Text('Booking'),
                     ),
                   ),
                 ],
               ),
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

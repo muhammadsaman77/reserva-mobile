@@ -1,4 +1,3 @@
-
 {
   "project_info": {
     "project_number": "159257793686",
@@ -8,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:159257793686:android:b5e925fceb2b8386165eb7",
+        "mobilesdk_app_id": "1:159257793686:android:87ca8fea82ae5dd8165eb7",
         "android_client_info": {
-          "package_name": "com.example.booking_app"
+          "package_name": "com.reserva.booking_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "159257793686-jn6nk2232ro94ntqevqp06hcddp03emi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAu94R8BL0S9UlbViBZCG7_N8bWY-5pKJo"
@@ -21,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159257793686-jn6nk2232ro94ntqevqp06hcddp03emi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "159257793686-315jpjeosaaf6tk3mpmnc0f14moe66f2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bookingApp"
+              }
+            }
+          ]
         }
       }
     }

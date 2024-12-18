@@ -11,8 +11,8 @@ class CardBooking extends StatelessWidget {
   final DateTime endDate;
   final void Function()? onTap;
 
-  CardBooking(
-      {
+  const CardBooking(
+      {super.key,
         required this.id,
         required this.image,
         required this.startDate,
@@ -30,7 +30,7 @@ class CardBooking extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 110,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color:  Colors.white,
@@ -48,26 +48,26 @@ class CardBooking extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(width: 20,),
+            const SizedBox(width: 20,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 15,),
-                Text(name, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),),
+                const SizedBox(height: 15,),
+                Text(name, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),),
                 Text(
                     "${convertDatetimeFormat(startDate)} - ${convertDatetimeFormat(endDate)}"
-                ,style: TextStyle(fontSize: 12,color: lighter),),
-                SizedBox(height: 10,),
+                ,style: const TextStyle(fontSize: 12,color: lighter),),
+                const SizedBox(height: 10,),
                 Row(
                   children: [
                     Text(
-                      "Rp " + price.toString(),
-                      style: TextStyle(
+                      "Rp $price",
+                      style: const TextStyle(
                           color: blueNormal,
                           fontSize: 14,
                           fontWeight: FontWeight.w700),
                     ),
-                    Text(
+                    const Text(
                       " /night",
                       style: TextStyle(color: lighter),
                     )

@@ -36,6 +36,6 @@ class CheckTransactionStatus extends PaymentEvent {
 }
 class TransactionCompleted extends PaymentEvent {
 
-  TransactionCompleted();
+  const TransactionCompleted();
 
 }

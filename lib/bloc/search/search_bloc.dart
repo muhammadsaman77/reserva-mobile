@@ -19,11 +19,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(SearchLoading());
       try {
         List<Hotel> response = await homeRepository.getHotels(query: event.query);
-        print(response);
+
         emit(SearchLoaded(response));
 
       } catch (e) {
-        print(e);
+
         emit(SearchError(e.toString()));
       }
     });

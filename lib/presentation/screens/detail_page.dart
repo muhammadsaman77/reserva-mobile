@@ -89,7 +89,7 @@ class DetailPage extends StatelessWidget {
                                     Row(
                                       children: [
                                         Text(
-                                          "Rp " + state.hotel.price.toString(),
+                                          "Rp ${state.hotel.price}",
                                           style: const TextStyle(
                                               color: blueNormal,
                                               fontSize: 14,
@@ -171,7 +171,7 @@ class DetailPage extends StatelessWidget {
                                       const SizedBox(height: 12),
                                       Text(
                                         "${convertDatetimeFormat(startDate)} - ${convertDatetimeFormat(endDate)}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: lighter),
@@ -255,17 +255,20 @@ class DetailPage extends StatelessWidget {
                       backgroundColor: blueNormal,
                       foregroundColor: Colors.white,
                     ),
-                    onPressed: () {
-                      showModalBottomSheet(
+                    onPressed: () async {
+                      final bool isCompleted = await showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
                         builder: (context) {
                           return const BookingDialog();
                         },
-                      ).whenComplete(() {
+                      ) != null;
+
+                      if (isCompleted && context.mounted) {
                         context.read<DatePickerCubit>().resetState();
-                      });
+                      }
                     },
+
                     child: Text(
                       isHistory == true ? 'Booking Again' : 'Booking Now',
                       style: const TextStyle(

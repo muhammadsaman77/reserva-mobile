@@ -55,7 +55,7 @@ class CardItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(toTitleCase( itemName),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w500)),
                           // Row(
                           //   children: [
@@ -74,21 +74,21 @@ class CardItem extends StatelessWidget {
                       ),
                       Text(
                         address,
-                        style: TextStyle(color: lighter),
+                        style: const TextStyle(color: lighter),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
                         children: [
                           Text(
-                            "Rp " + price,
-                            style: TextStyle(
+                            "Rp $price",
+                            style: const TextStyle(
                                 color: blueNormal,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700),
                           ),
-                          Text(
+                          const Text(
                             " /night",
                             style: TextStyle(color: lighter),
                           )

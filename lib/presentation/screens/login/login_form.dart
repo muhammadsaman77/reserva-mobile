@@ -1,4 +1,5 @@
 import 'package:booking_app/bloc/auth/auth_bloc.dart';
+import 'package:booking_app/bloc/bottom_navigation/bottom_navigation_bloc.dart';
 import 'package:booking_app/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,7 @@ class LoginForm extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
+            context.read<BottomNavigationBloc>().add(const ChangeBottomNav(NavbarItems.home));
             Navigator.of(context).pushReplacementNamed('/');
           } else if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -37,13 +39,13 @@ class LoginForm extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
+                const Center(
                     child: Text(
                   "Login",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 )),
                 const SizedBox(height: 40),
-                Text(
+                const Text(
                   "Email",
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
@@ -51,7 +53,7 @@ class LoginForm extends StatelessWidget {
                   controller: emailController,
                 ),
                 const SizedBox(height: 10),
-                Text(
+                const Text(
                   "Password",
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
@@ -62,7 +64,7 @@ class LoginForm extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushNamed('/forgot-password');
                       },
-                      child: Text(
+                      child: const Text(
                         "Forgot Password?",
                         style: TextStyle(color: Colors.red),
                       )),
@@ -94,7 +96,7 @@ class LoginForm extends StatelessWidget {
 class _EmailInput extends StatelessWidget {
   final TextEditingController controller;
 
-  const _EmailInput({super.key, required this.controller});
+  const _EmailInput({required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +117,7 @@ class _EmailInput extends StatelessWidget {
 class _PasswordInput extends StatelessWidget {
   final TextEditingController controller;
 
-  const _PasswordInput({super.key, required this.controller});
+  const _PasswordInput({ required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -136,12 +138,11 @@ class _PasswordInput extends StatelessWidget {
 class _LoginButton extends StatelessWidget {
   final void Function() onPressed;
 
-  const _LoginButton({super.key, required this.onPressed});
+  const _LoginButton({ required this.onPressed});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 400,
-      height: 50,
+    return SizedBox(
+      width: double.infinity,
       child: ElevatedButton(
           key: const Key('loginForm_continue_raisedButton'),
           style: ElevatedButton.styleFrom(
@@ -150,7 +151,7 @@ class _LoginButton extends StatelessWidget {
               backgroundColor: blueNormal,
               foregroundColor: Colors.white),
           onPressed: onPressed,
-          child: Text(
+          child: const Text(
             'Login',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           )),

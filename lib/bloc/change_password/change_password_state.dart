@@ -1,4 +1,4 @@
-part of 'password_cubit.dart';
+part of 'change_password_cubit.dart';
 class PasswordState {
   final bool isLoading;
   final String? errorMessage;

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'password_state.dart';
+part 'change_password_state.dart';
 class PasswordCubit extends Cubit<PasswordState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 

@@ -22,12 +22,12 @@ class SearchPage extends StatelessWidget {
                 ? TextField(
               controller: _searchController,
               onChanged: (query) => context.read<SearchBloc>().add(FetchSearchResults(query)),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search...',
                 border: InputBorder.none,
                 hintStyle: TextStyle(color: Colors.white60),
               ),
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             )
                 : const Text('Search Hotel',style:
               TextStyle(fontWeight: FontWeight.w600,fontSize: 18),);

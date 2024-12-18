@@ -17,17 +17,17 @@ class SignupPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Align(
-          alignment: Alignment(0, -1 / 3),
+          alignment: const Alignment(0, -1 / 3),
           child: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Center(
+              const Center(
                   child: Text(
                 "Signup",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               )),
               const SizedBox(height: 40),
-              Text(
+              const Text(
                 "Username",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -40,10 +40,10 @@ class SignupPage extends StatelessWidget {
                   hintText: "Enter your username",
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Email",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -57,10 +57,10 @@ class SignupPage extends StatelessWidget {
                   hintText: "Enter your email",
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Phone Number",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -74,10 +74,10 @@ class SignupPage extends StatelessWidget {
                   hintText: "Enter your phone number",
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Password",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -90,10 +90,10 @@ class SignupPage extends StatelessWidget {
                   hintText: "Enter your password",
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Container(
+              SizedBox(
                 width: 400,
                 height: 50,
                 child: ElevatedButton(
@@ -111,7 +111,7 @@ class SignupPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         backgroundColor: blueNormal,
                         foregroundColor: Colors.white),
-                    child: Text(
+                    child: const Text(
                       'Signup',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -120,12 +120,12 @@ class SignupPage extends StatelessWidget {
               Center(
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text("Already have an account?"),
+                  const Text("Already have an account?"),
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/login');
                       },
-                      child: Text(
+                      child: const Text(
                         "Login",
                         style: TextStyle(color: blueNormal),
                       ))

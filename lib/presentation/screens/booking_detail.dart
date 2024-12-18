@@ -8,7 +8,7 @@ class BookingDetail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title:  Text('Booking Detail',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+        title:  const Text('Booking Detail',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
       ),
       body: const Center(
         child: Text('Booking Detail'),

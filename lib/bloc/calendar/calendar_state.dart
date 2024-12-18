@@ -16,7 +16,7 @@ class CalendarDaySelected extends CalendarState {
   final DateTime selectedDay;
   final List<Event> events;
 
-  CalendarDaySelected(this.selectedDay, this.events);
+  const CalendarDaySelected(this.selectedDay, this.events);
 
   @override
   List<Object> get props => [selectedDay, events];

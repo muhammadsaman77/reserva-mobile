@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:booking_app/data/model/booking.dart';
 import 'package:booking_app/data/model/booking_history.dart';
 import 'package:booking_app/data/model/hotel.dart';
@@ -14,13 +12,14 @@ class BookingRepository {
       final bookingsRef = _db.collection('bookings');
       await bookingsRef.add(booking.toJson());
     } catch (e) {
-      print('Failed to add booking: $e');
+      throw Exception('Failed to create booking: $e');
     }
   }
 
-  Future<List<BookingHistory>> getBookings() async {
+  Future<List<BookingHistory>> getBookings(userId) async {
     try {
-      QuerySnapshot bookingSnapshot = await _db.collection('bookings').get();
+      QuerySnapshot bookingSnapshot = await _db.collection('bookings')
+          .where('user_id', isEqualTo: userId).get();
 
       List<BookingHistory> bookingHistoryList = [];
 
@@ -51,6 +50,7 @@ class BookingRepository {
 
         bookingHistoryList.add(bookingHistory);
       }
+
       return bookingHistoryList;
     } catch (e) {
       throw Exception('Failed to fetch bookings: $e');

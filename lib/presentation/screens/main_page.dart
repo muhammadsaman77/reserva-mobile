@@ -65,9 +65,7 @@ class MainPage extends StatelessWidget {
                       onPressed: () =>
                           context.read<SearchBloc>().add(ToggleSearchEvent()),
                     ),
-                    IconButton(onPressed: (){
-                      Navigator.of(context).pushNamed('/chat');
-                    }, icon: const Icon(Icons.chat)),
+
                   ],
                 );
 
@@ -99,7 +97,7 @@ class MainPage extends StatelessWidget {
         builder: (context, state) {
           switch (state.navbarItem) {
             case NavbarItems.home:
-              return HomePage();
+              return const HomePage();
             case NavbarItems.schedule:
               return const BookingPage();
             case NavbarItems.profile:

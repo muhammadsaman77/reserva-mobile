@@ -4,7 +4,7 @@ import 'package:booking_app/data/model/user.dart';
 import 'package:booking_app/repository/auth_repository.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  final authRepository = AuthRepository();
+  final _authRepository = AuthRepository();
   ProfileCubit() : super(ProfileInitial());
 
   // Simulasi pengambilan data profil
@@ -13,9 +13,11 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     try {
       // Simulasi delay untuk fetch data profil
-      final User user = await  authRepository.getFullUser();
+      final User user = await  _authRepository.getFullUser();
+
       emit(ProfileLoaded(name: user.username!, phoneNumber: user.phoneNumber!,imageUrl: user.imageUrl));
     } catch (e) {
+
       emit(ProfileError(error: 'Failed to load profile'));
     }
   }
@@ -26,12 +28,12 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     try {
       // Simulasi delay untuk update data profil
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
 
 
       emit(ProfileUpdated(name: name, phoneNumber: phoneNumber));
     } catch (e) {
-      print(e);
+
       emit(ProfileError(error: 'Failed to update profile'));
     }
   }

@@ -36,9 +36,7 @@ class PaymentPage extends StatelessWidget {
                   ..setJavaScriptMode(JavaScriptMode.unrestricted)
                   ..loadRequest(Uri.parse("$midtransUrl/${state.snapToken}"))
                   ..setNavigationDelegate(NavigationDelegate(
-                    onWebResourceError: (error) {
-                      print("erorr :$error");
-                    },
+
                     onPageFinished: (url) {
                       if (url.contains(
                           "https://simulator.sandbox.midtrans.com/v2/deeplink/payment")) {
@@ -67,7 +65,7 @@ class PaymentPage extends StatelessWidget {
             final transactionStatus = state.status["transaction_status"];
             if (transactionStatus == "settlement" ||
                 transactionStatus == "capture") {
-              return SuccessPage();
+              return const SuccessPage();
             }
           }
           if (state is PaymentError) {

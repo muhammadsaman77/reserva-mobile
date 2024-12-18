@@ -23,7 +23,7 @@ class DatePickerCubit extends Cubit<DatePickerState> {
       ));
 
     }catch(e){
-      print(e.toString());
+      rethrow;
     }
 
   }

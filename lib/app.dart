@@ -1,17 +1,17 @@
 import 'package:booking_app/bloc/auth/auth_bloc.dart';
 import 'package:booking_app/bloc/booking_history/booking_history_bloc.dart';
+import 'package:booking_app/bloc/change_password/change_password_cubit.dart';
 import 'package:booking_app/bloc/choice/choice_cubit.dart';
 import 'package:booking_app/bloc/date_picker/date_picker_cubit.dart';
 import 'package:booking_app/bloc/detail/detail_bloc.dart';
+import 'package:booking_app/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:booking_app/bloc/home/home_bloc.dart';
-import 'package:booking_app/bloc/password/password_cubit.dart';
 import 'package:booking_app/bloc/payment/payment_bloc.dart';
 import 'package:booking_app/bloc/profile/profile_cubit.dart';
 import 'package:booking_app/bloc/scroll/scroll_cubit.dart';
 import 'package:booking_app/bloc/search/search_bloc.dart';
 import 'package:booking_app/bloc/splash/splash_bloc.dart';
 import 'package:booking_app/presentation/screens/booking_detail.dart';
-import 'package:booking_app/presentation/screens/chat_page.dart';
 import 'package:booking_app/presentation/screens/edit_password_page.dart';
 import 'package:booking_app/presentation/screens/detail_page.dart';
 import 'package:booking_app/presentation/screens/forgot_password_page.dart';
@@ -56,6 +56,7 @@ class App extends StatelessWidget {
           BlocProvider(create: (_)=> SearchBloc()),
           BlocProvider(create: (_)=> PasswordCubit()),
           BlocProvider(create: (_)=> ProfileCubit()),
+          BlocProvider(create: (_)=> ForgotPasswordBloc()),
         ],
         child: const AppView(),
       ),
@@ -79,12 +80,12 @@ class AppView extends StatelessWidget {
         '/change-password': (context) => const ChangePasswordPage(),
         '/success': (context) => const SuccessPage(),
         '/': (context) =>  MainPage(),
-        '/splash': (context) => SplashPage(),
-        '/booking-detail': (context) => BookingDetail(),
+        '/splash': (context) => const SplashPage(),
+        '/booking-detail': (context) => const BookingDetail(),
         '/edit-profile': (context) => EditProfilePage(),
         '/search': (context)=> SearchPage(),
         '/payment': (context) => const PaymentPage(),
-        '/chat': (context) => ChatPage(),
+
 
       },
       initialRoute: '/splash',

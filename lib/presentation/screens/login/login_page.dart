@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  static Page<void> page() => MaterialPage(child: LoginPage());
+  static Page<void> page() => const MaterialPage(child: LoginPage());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
             child:  LoginForm()));
   }
 }

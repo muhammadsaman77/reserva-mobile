@@ -17,6 +17,11 @@ class AuthRepository {
   }
   Future<User?> signIn(String email, String password) async {
     final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    final user = await _db.collection('users').doc(userCredential.user!.uid).get();
+    if (user.data()!["roles"] != "guest") {
+      signOut();
+      return null;
+    }
     return userCredential.user;
   }
   Future<void> signOut() async {

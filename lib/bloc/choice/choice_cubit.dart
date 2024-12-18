@@ -8,7 +8,7 @@ part 'choice_state.dart';
 class ChoiceCubit extends Cubit<ChoiceState> {
   final DatePickerCubit datePickerCubit;
   ChoiceCubit(this.datePickerCubit)
-       : super(ChoiceState());
+       : super(const ChoiceState());
 
   void updateRooms(List<Room> rooms,
     String hotelId

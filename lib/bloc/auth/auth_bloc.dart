@@ -28,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthError(message: 'Login Failed'));
         }
       } catch (e) {
+
         emit(AuthError(message: e.toString()));
       }
     });
@@ -47,7 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(AuthError(message: 'Sign Up Failed'));
           }
         } catch (e) {
-          print(e);
+
           emit(AuthError(message: e.toString()));
         }
       },

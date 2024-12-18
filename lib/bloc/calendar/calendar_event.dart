@@ -12,7 +12,7 @@ abstract class CalendarEvent extends Equatable {
 class DaySelected extends CalendarEvent {
   final DateTime selectedDay;
 
-  DaySelected(this.selectedDay);
+  const DaySelected(this.selectedDay);
 
   @override
   List<Object> get props => [selectedDay];
@@ -23,7 +23,7 @@ class AddEvent extends CalendarEvent {
   final DateTime day;
   final String title;
 
-  AddEvent(this.day, this.title);
+  const AddEvent(this.day, this.title);
 
   @override
   List<Object> get props => [day, title];

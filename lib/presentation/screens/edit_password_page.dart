@@ -1,4 +1,4 @@
-import 'package:booking_app/bloc/password/password_cubit.dart';
+import 'package:booking_app/bloc/change_password/change_password_cubit.dart';
 import 'package:booking_app/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +15,7 @@ class ChangePasswordPage extends StatelessWidget {
         TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Edit Password',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
@@ -27,8 +27,8 @@ class ChangePasswordPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 30),
-              Text(
+              const SizedBox(height: 30),
+              const Text(
                 "Old Password",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -43,8 +43,8 @@ class ChangePasswordPage extends StatelessWidget {
 
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 "New Password",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -59,8 +59,8 @@ class ChangePasswordPage extends StatelessWidget {
 
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 "Confirm New Password",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -75,7 +75,7 @@ class ChangePasswordPage extends StatelessWidget {
 
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 50,
@@ -119,7 +119,7 @@ class ChangePasswordPage extends StatelessWidget {
                           backgroundColor: blueNormal,
                           foregroundColor: Colors.white,
                         ),
-                        child: Text(
+                        child: const Text(
                           'Save',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),

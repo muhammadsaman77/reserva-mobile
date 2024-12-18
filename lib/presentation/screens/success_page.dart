@@ -1,8 +1,5 @@
-import 'package:booking_app/app.dart';
-import 'package:booking_app/bloc/payment/payment_bloc.dart';
 import 'package:booking_app/constant/color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SuccessPage extends StatelessWidget {
@@ -20,12 +17,12 @@ class SuccessPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Thanks For Booking",
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
-                    Text(
+                    const Text(
                       "You room’s ready for vacation",
                       style:
                           TextStyle(color: lighter, fontSize: 12, fontWeight: FontWeight.w300),
@@ -50,7 +47,7 @@ class SuccessPage extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, '/');
 
                 },
-                child: Text("Back To Home",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                child: const Text("Back To Home",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
               ),
             )
           ],

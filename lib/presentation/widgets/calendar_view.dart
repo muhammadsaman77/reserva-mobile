@@ -11,7 +11,7 @@ class CalendarView extends StatelessWidget {
       focusedDay: DateTime.utc(2024, 10, 17),
       firstDay: DateTime.utc(2020, 1, 1),
       lastDay: DateTime.utc(2030, 12, 31),
-    calendarStyle: CalendarStyle(
+    calendarStyle: const CalendarStyle(
     todayDecoration: BoxDecoration(
     color: blueNormal,
     shape: BoxShape.circle,

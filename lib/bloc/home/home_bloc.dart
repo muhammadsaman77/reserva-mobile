@@ -13,11 +13,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         emit(HomeLoading());
         List<Hotel> response = await homeRepository.getHotels();
-
         emit(HomeLoaded(response));
 
       } catch (e) {
-        print(e);
+
         emit(HomeError(message:  e.toString()));
       }
     });
